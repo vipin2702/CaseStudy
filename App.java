@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 public class App {
 	
@@ -32,8 +33,10 @@ public class App {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			Connection con = DriverManager.getConnection(url, "system", "system");
 			PreparedStatement ps = con.prepareStatement(query);
+			Statement st = con.createStatement();
+			st.executeUpdate("truncate table data2");
 
-			while ((str = br.readLine()) != "Trailer1000001") {
+			while (!(str = br.readLine()).equalsIgnoreCase("Trailer1000001")) {
 				String[] str1 = str.split("\\|");
 				
 				ps.setString(1, str1[0]);
