@@ -18,8 +18,9 @@ public class App {
 		BufferedReader br = new BufferedReader(fr);
 		
 		String str = null;
-
-    long start = System.currentTimeMillis();
+		int count = 0;
+		
+		long start = System.currentTimeMillis();
 		Path path = Paths.get("myfile2.txt");
 		long lineCount = Files.lines(path).count();
 		System.out.println("Data entries available in file:" + (lineCount-1));
@@ -36,9 +37,10 @@ public class App {
 			
 			
 			final int batchSize = 100000;
-	    int count = 0;
-      
-        while (!(str = br.readLine()).equalsIgnoreCase("Trailer1000001")) {
+			int count1 = 0;
+
+
+			while (!(str = br.readLine()).equalsIgnoreCase("Trailer1000001")) {
 				String[] str1 = str.split("\\|");
 				
 				ps.setString(1, str1[0]);
@@ -47,12 +49,12 @@ public class App {
 				ps.setString(4, str1[3]);
 				ps.setString(5, str1[4]);
 				ps.addBatch();
-				
-				if(++count % batchSize == 0) {
+				count++;
+				if(++count1 % batchSize == 0) {
 				ps.executeBatch();
 					
 				}
-			
+				//count = count + ps.executeUpdate();
 			}
 			
 			ps.executeBatch(); // insert remaining records
@@ -61,6 +63,8 @@ public class App {
 			
 			long end = System.currentTimeMillis();
 			System.out.println("Time elapsed = "+(end-start)+"ms");
+			
+			System.out.println(count+"row/s updated");
 			
 		}
 		
