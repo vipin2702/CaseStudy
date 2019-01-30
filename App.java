@@ -26,6 +26,32 @@ public class App {
 		long lineCount = Files.lines(path).count();
 		System.out.println("Data enties available in file:" + (lineCount-1));
 		
+		
+		/*
+FileInputStream stream = new FileInputStream("myfile2.txt");
+byte[] buffer = new byte[8192];
+int count = 0;
+int n;
+while ((n = stream.read(buffer)) > 0) {
+    for (int i = 0; i < n; i++) {
+        if (buffer[i] == '\n') count++;
+    }
+}
+stream.close();
+System.out.println("Number of lines: " + count);
+
+*/
+
+// Traditional method:
+/*
+long lines=0;
+while((br.readLine())!=null){
+lines++;
+}
+*/
+		
+		
+		
 		if(lineCount==1000001) 
 		{
 			String query = "insert into data2 values(?,?,?,?,?)";
